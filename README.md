@@ -123,6 +123,18 @@ kubectl get services
 http://192.168.39.234:31154/posts
 http://minikube_ip:nodePort/name
 
-****\*\***** skaffold **\*\*\*\***
+\***\*\*\*\*\*** skaffold **\*\*\*\***
 #start:
 skaffold dev
+
+**\*\*\*\***\***\*\*\*\***creating a secret **\*\***\*\*\***\*\***
+#secret will share amongs all pods inside a cluster through env file
+#secreate are stored in key value paire
+#command:
+kubectl create secret generic name_of_secret --from-literal=KEY=value
+#example:
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=my_secret_code
+
+# find all the secrets
+
+kubectl get secrets
