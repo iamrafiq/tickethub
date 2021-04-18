@@ -15,3 +15,7 @@ spec:
             backend: #cluster of api/users/?(.*)   # ?(.*) means anything
               serviceName: auth-srv # then we will going to send the request on auth-srv
               servicePort: 3000 #service created in auth-depl file with assigned port 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
+              servicePort: 3000
