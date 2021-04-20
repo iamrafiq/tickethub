@@ -14,7 +14,7 @@ const start = async () => {
   } catch (err) {
     console.log(err);
   }
-  app.listen(3000, () => {
+  app.listen(5000, () => {
     console.log('auth port 3000');
   });
 };
