@@ -14,7 +14,7 @@ spec:
           - path: /api/users/?(.*) # any time someone makes a request to our
             backend: #cluster of api/users/?(.*)   # ?(.*) means anything
               serviceName: auth-srv # then we will going to send the request on auth-srv
-              servicePort: 5000 #service created in auth-depl file with assigned port 3000
+              servicePort: 6000 #service created in auth-depl file with assigned port 3000
           - path: /?(.*) #client must be the last one, otherwise it will match with every route
             backend:
               serviceName: client-srv
