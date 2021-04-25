@@ -1,12 +1,14 @@
 import express from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
+
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signupRouter } from './routes/signup';
 import { signoutRouter } from './routes/signout';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-errors';
+const cors = require('cors');
 
 const bodyParser = require('body-parser');
 // const cors = require('cors');
@@ -20,7 +22,7 @@ app.use(
     secure: process.env.NODE_ENV !== 'test', // false allow access to store cookie over http:// connection
   })
 );
-// app.use(cors());
+app.use(cors());
 
 app.use(currentUserRouter);
 app.use(signinRouter);
