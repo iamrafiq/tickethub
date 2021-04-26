@@ -1,8 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import buildClient from "../api/build-client";
-
-const AppComponent = ({Component, pageProps}) =>{
-    return  <div className=""><Component {...pageProps}></Component></div>
+import Header from "../components/header";
+const AppComponent = ({Component, pageProps, currentUser}) =>{
+    return  (<div >
+        <Header currentUser = {currentUser}></Header>
+        <Component {...pageProps}></Component>
+        </div>)
+    
 };
 AppComponent.getInitialProps = async(appContext) =>{
     console.log(Object.keys(appContext))
@@ -14,7 +18,10 @@ AppComponent.getInitialProps = async(appContext) =>{
     }
     console.log({pageProps})
 
-    return data;
+    return {
+        pageProps,
+        ...data
+    };
 }
 
 export default AppComponent;
