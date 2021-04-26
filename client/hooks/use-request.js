@@ -7,10 +7,13 @@ export default ({url, method, body, onSuccess})=>{
         try {
             setErrors(null);
             const response = await axios[method](url, body);
+            console.log("signout res", response)
             if (onSuccess){
                 onSuccess(response.data);
             }
         } catch (error) {
+            console.log("signout err", error)
+
             setErrors(<div className="apert alert-danger">
             <h4>Ooops....</h4>
             <ul className="my-0">
