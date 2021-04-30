@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: lordrafiq/tickets:latest
+          image: lordrafiq/tickets
+          # resources:
+          #   requests:
+          #     memory: "128Mi"
+          #     cpu: "250m"
+          #   limits:
+          #     memory: "256Mi"
+          #     cpu: "500m"
           env:
             - name: MONGO_URI
               value: "mongodb://tickets-mongo-srv:27017/tickets"
@@ -31,9 +38,8 @@ metadata:
 spec:
   selector:
     app: tickets
-  type: ClusterIP
   ports:
     - name: tickets
       protocol: TCP
-      port: 4000
-      targetPort: 6000
+      port: 3000
+      targetPort: 3000

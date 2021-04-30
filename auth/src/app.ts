@@ -8,7 +8,6 @@ import { signupRouter } from './routes/signup';
 import { signoutRouter } from './routes/signout';
 import { errorHandler } from '@lordjs/tickethub-common';
 import { NotFoundError } from '@lordjs/tickethub-common';
-const cors = require('cors');
 
 const bodyParser = require('body-parser');
 // const cors = require('cors');
@@ -22,7 +21,6 @@ app.use(
     secure: process.env.NODE_ENV !== 'test', // false allow access to store cookie over http:// connection
   })
 );
-app.use(cors());
 
 app.use(currentUserRouter);
 app.use(signinRouter);

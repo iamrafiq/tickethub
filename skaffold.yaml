@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta13
+apiVersion: skaffold/v2alpha3
 kind: Config
 deploy:
   kubectl:
@@ -6,18 +6,18 @@ deploy:
       - ./infra/k8s/*
 build:
   local:
-    push: true
+    push: false
   artifacts:
-    - image: lordrafiq/auth
-      context: auth
+    - image: lordrafiq/tickets
+      context: tickets
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: lordrafiq/tickets
-      context: tickets
+    - image: lordrafiq/auth
+      context: auth
       docker:
         dockerfile: Dockerfile
       sync:

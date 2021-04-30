@@ -1,30 +1,26 @@
 import express from 'express';
 import 'express-async-errors';
+import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-
-import { errorHandler } from '@lordjs/tickethub-common';
-import { NotFoundError } from '@lordjs/tickethub-common';
-const cors = require('cors');
-
-const bodyParser = require('body-parser');
-// const cors = require('cors');
+import { errorHandler, NotFoundError } from '@lordjs/tickethub-common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
-app.use(bodyParser.json());
+app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== 'test', // false allow access to store cookie over http:// connection
+    secure: process.env.NODE_ENV !== 'test',
   })
 );
-app.use(cors());
 
-// all means, any type of request get/post/put... if the url not found
-//then bellow code will throw a error
+app.use(createTicketRouter);
+
 app.all('*', async (req, res) => {
   throw new NotFoundError();
 });
+
 app.use(errorHandler);
 
 export { app };
