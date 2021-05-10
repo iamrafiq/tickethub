@@ -8,6 +8,7 @@ import { signupRouter } from './routes/signup';
 import { signoutRouter } from './routes/signout';
 import { errorHandler } from '@lordjs/tickethub-common';
 import { NotFoundError } from '@lordjs/tickethub-common';
+import { resolveModuleName } from 'typescript';
 
 const bodyParser = require('body-parser');
 // const cors = require('cors');
