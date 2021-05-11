@@ -20,6 +20,7 @@ stan.on('connect', () => {
    *                    only one member of listenerQueueGrop will receive the event
    *
    */
+
   const subscription = stan.subscribe(
     'ticket:created',
     'listenerQueueGrop',
