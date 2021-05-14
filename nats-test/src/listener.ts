@@ -1,5 +1,6 @@
-import nats, { Message } from 'node-nats-streaming';
+import nats from 'node-nats-streaming';
 import { randomBytes } from 'crypto';
+import { TicketCreatedListener } from './events/ticket-created-listener';
 console.clear();
 /**
  * client_id: unique id from kubernets or random string
@@ -13,7 +14,17 @@ const stan = nats.connect('ticketing', clientId, {
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
 
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  stan.on('close', () => {
+    console.log('NATS connection closed!');
+    process.exit();
+  });
+
+  new TicketCreatedListener(stan).listen();
+  // const options = stan
+  //   .subscriptionOptions()
+  //   .setManualAckMode(true)
+  //   .setDeliverAllAvailable()
+  //   .setDurableName('accounting-services');
   /**
    * ticket:created: chennel
    * listenerQueueGrop: if there more then one process of listener is running then they all added to listenerQueueGrop and
@@ -21,16 +32,19 @@ stan.on('connect', () => {
    *
    */
 
-  const subscription = stan.subscribe(
-    'ticket:created',
-    'listenerQueueGrop',
-    options
-  );
-  subscription.on('message', (msg: Message) => {
-    const data = msg.getData();
-    if (typeof data === 'string') {
-      console.log(`Received event # ${msg.getSequence()}, with data: ${data}`);
-    }
-    msg.ack();
-  });
+  // const subscription = stan.subscribe(
+  //   'ticket:created',
+  //   'queue-group-name',
+  //   options
+  // );
+  // subscription.on('message', (msg: Message) => {
+  //   const data = msg.getData();
+  //   if (typeof data === 'string') {
+  //     console.log(`Received event # ${msg.getSequence()}, with data: ${data}`);
+  //   }
+  //   msg.ack();
+  // });
 });
+
+process.on('SIGINT', () => stan.close());
+process.on('SIGTERM', () => stan.close());
