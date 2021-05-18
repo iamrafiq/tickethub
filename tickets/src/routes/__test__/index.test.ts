@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { createTicketRouter } from '../new';
+
 const createTicket = () => {
   return request(app).post('/api/tickets').set('Cookie', global.signin()).send({
     title: 'ticket title',
