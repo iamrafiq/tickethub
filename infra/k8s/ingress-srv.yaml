@@ -17,7 +17,11 @@ spec:
               servicePort: 6000 #service created in auth-depl file with assigned port 3000
           - path: /api/tickets/?(.*)
             backend:
-              serviceName: tickets-srv
+              serviceName: orders-srv
+              servicePort: 3000
+          - path: /api/orders/?(.*)
+            backend:
+              serviceName: orders-srv
               servicePort: 3000
           - path: /?(.*) #client must be the last one, otherwise it will match with every route
             backend:
