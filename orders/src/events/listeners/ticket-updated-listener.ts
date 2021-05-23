@@ -11,11 +11,15 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   queGroupName = queueGroupName;
 
   async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
-    const ticket = await Ticket.findOne({
-      _id: data.id,
-      version: data.version - 1, // checking linear version interpolation for mitigiting concurency issuse
-    });
+    // const ticket = await Ticket.findOne({
+    //   _id: data.id,
+    //   version: data.version - 1, // checking linear version interpolation for mitigiting concurency issuse
+    // });
 
+    const ticket = await Ticket.findByEvent({
+      id: data.id,
+      version: data.version,
+    });
     if (!ticket) {
       throw new Error('Ticket not found');
     }
