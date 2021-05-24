@@ -11,6 +11,7 @@ interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   userId: string;
+  orderId?: string; // question mark tells type script that this field is optional, in other words it means value of this field is string or undefined
   version: number; // since we change __V to version in bellow so now, we have to tell type script that version field exist
 }
 
@@ -31,6 +32,9 @@ const ticketSchema = new mongoose.Schema(
     userId: {
       type: String,
       required: true,
+    },
+    orderId: {
+      type: String,
     },
   },
   {
