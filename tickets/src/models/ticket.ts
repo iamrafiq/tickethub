@@ -8,6 +8,8 @@ interface TicketAttrs {
 }
 
 interface TicketDoc extends mongoose.Document {
+  // we do not have to specify id property because extending mongoogse.Document
+  // id property already added.
   title: string;
   price: number;
   userId: string;

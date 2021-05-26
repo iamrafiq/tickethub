@@ -8,6 +8,8 @@ interface TicketAttrs {
 }
 
 export interface TicketDoc extends mongoose.Document {
+  // we do not have to specify id property because extending mongoogse.Document
+  // id property already added.
   title: string;
   price: number;
   version: number; // since we change __V to version in bellow so now, we have to tell type script that version field exist
