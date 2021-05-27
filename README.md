@@ -1,3 +1,17 @@
+# secrets
+
+# 1. JWT_TOKEN for auth and other modules
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=my_awesome_jwt_secret_code
+
+# 2. STRIPE_KEY for stripe payment services
+
+kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_51IvroCSFotrMkLy6ekvSCs7RQJEbnYoFZg9IbgYnPK0XmzNk3poQo4qUjvb9rpS61phB2HcoBKyFz2qX6Z6FcmbC009z6xaphF
+
+# To show all the secrets
+
+kubectl get secrets
+
 # tickethub
 
 #run type script:
@@ -105,7 +119,7 @@ kubectl delete deployment [deployment_name]
 #updating deployment from doker hub:
 #update your code
 #build image with latest tag
-#push newly build image to docker hub
+#push newly build iSTRIPE_KEYmage to docker hub
 #then run command: kubectl rollout restart deployment [deployment_file_name]
 docker build -t lordrafiq/posts .
 docker push lordrafiq/posts
