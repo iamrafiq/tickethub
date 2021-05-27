@@ -12,7 +12,7 @@ import { Order, OrderStatus } from '../models/order';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 const router = express.Router();
-const EXPIRATION_WINDOW_SECONDS = 10;
+const EXPIRATION_WINDOW_SECONDS = 60;
 
 router.post(
   '/api/orders',

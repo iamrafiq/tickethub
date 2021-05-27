@@ -6,7 +6,7 @@ kubectl create secret generic jwt-secret --from-literal=JWT_KEY=my_awesome_jwt_s
 
 # 2. STRIPE_KEY for stripe payment services
 
-kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_51IvroCSFotrMkLy6ekvSCs7RQJEbnYoFZg9IbgYnPK0XmzNk3poQo4qUjvb9rpS61phB2HcoBKyFz2qX6Z6FcmbC009z6xaphF
+kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=sk_test_51IvsaiA5UVGhmwGVVJiE3AxEvdd5hf4utPj4uCSS32hvjeaQH28FNHi2aO293JprPwvcL62iCfhTcFFhYeSB2OhX00WDFKXuUF
 
 # To show all the secrets
 
