@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@lordjs/tickethub-common';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+
 interface OrderAttrs {
   id: string;
   version: number;
@@ -45,6 +47,9 @@ const orderSchema = new mongoose.Schema(
     },
   }
 );
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({
