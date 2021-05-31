@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecom-master-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecom-master
+  template:
+    metadata:
+      labels:
+        app: ecom-master
+    spec:
+      containers:
+        - name: ecom-master
+          image: lordrafiq/ecom-master
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: "ticketing"
+            - name: DATABASE_URL
+              value: "postgres://postgres:root@postgres-srv:5432/postgresdb"
+            - name: DB_USENAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "root"
+            - name: DB_NAME
+              value: "postgresdb"
+            - name: DB_HOST
+              value: "postgres-srv"
+            - name: DB_PORT
+              value: "5432"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecom-master-srv
+spec:
+  selector:
+    app: ecom-master
+  ports:
+    - name: ecom-master
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

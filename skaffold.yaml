@@ -8,6 +8,14 @@ build:
   local:
     push: false
   artifacts:
+    - image: lordrafiq/ecom-master
+      context: ecom-master
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: lordrafiq/tickets
       context: tickets
       docker:
