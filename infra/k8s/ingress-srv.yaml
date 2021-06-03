@@ -27,11 +27,15 @@ spec:
             backend:
               serviceName: orders-srv
               servicePort: 3000
+          - path: /graphql/(.*)
+            backend:
+              serviceName: ecom-master-srv
+              servicePort: 3000
           - path: /api/payments/?(.*)
             backend:
               serviceName: payments-srv
               servicePort: 3000
           - path: /?(.*) #client must be the last one, otherwise it will match with every route
             backend:
-              serviceName: client-srv
+              serviceName: ecom-master-srv-node #client-srv
               servicePort: 3000

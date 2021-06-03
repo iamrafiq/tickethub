@@ -7,7 +7,7 @@ import {
   NotFoundError,
   currentUser,
 } from '@lordjs/tickethub-common';
-import { showOrderRouter } from './routes/show';
+// import { showOrderRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,10 +19,10 @@ app.use(
   })
 );
 app.use(currentUser);
-app.use(showOrderRouter);
-app.all('*', async (req, res) => {
-  throw new NotFoundError();
-});
+// app.use(showOrderRouter);
+// app.all('*', async (req, res) => {
+//   throw new NotFoundError();
+// });
 
 app.use(errorHandler);
 

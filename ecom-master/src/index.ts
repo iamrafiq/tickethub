@@ -1,21 +1,24 @@
 // import mongoose from 'mongoose';
+import { Request, Response } from 'express';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { postgresWrapper } from './postgres-wrapper';
-// import { Sequelize } from 'sequelize';
-// postgresql://postgres:root@postgres-srv.default.svc.cluster.local:5432/postgresdb?schema=public"
-// const sequelize = new Sequelize(process.env.DATABASE_URL!);
-// console.log('users', users);
-// async function main() {}
+const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
 
-// main()
-//   .catch((e) => {
-//     throw e;
-//   })
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
-//   .finally(async () => {
-//     await prisma.$disconnect();
-//   });
+const resolvers = {
+  Query: {
+    hello: () => {
+      return 'hello world';
+    },
+  },
+};
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -64,11 +67,14 @@ const start = async () => {
       .catch((error: any) =>
         console.error('Unable to connect to the database:', error)
       );
-    // await mongoose.connect(process.env.MONGO_URI, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    //   useCreateIndex: true,
+
+    const apolllowServer = new ApolloServer({ typeDefs, resolvers });
+    await apolllowServer.start();
+    apolllowServer.applyMiddleware({ app: app });
+    // app.use((req: Request, res: Response) => {
+    //   res.send('Hello express server');
     // });
+    // app.listen(3000, () => console.log('Our server is running on port 3000'));
   } catch (err) {
     console.error(err);
   }
