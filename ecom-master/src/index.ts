@@ -3,22 +3,10 @@ import { Request, Response } from 'express';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { postgresWrapper } from './postgres-wrapper';
+import { typeDefs } from './type-defs';
+import { resolvers } from './resolvers';
+import { ApolloServer } from 'apollo-server-express';
 const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return 'hello world';
-    },
-  },
-};
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
