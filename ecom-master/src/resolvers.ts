@@ -49,6 +49,32 @@ const resolvers = {
         return newUser;
       },
     },
+    deleteUser: {
+      resolve: async (parent: any, args: any, context: any, info: any) => {
+        const { id } = args;
+        const deleteUser = await user.delete({
+          where: {
+            id,
+          },
+        });
+        console.log('delete user', deleteUser);
+        return 'Post deleted OK.';
+      },
+    },
+    updateUser: async (parent: any, args: any, context: any, info: any) => {
+      const { id } = args;
+      const { username } = args.user;
+      const updatedUser = await user.update({
+        where: {
+          id,
+        },
+        data: {
+          username,
+        },
+      });
+
+      return updatedUser;
+    },
   },
 };
 
